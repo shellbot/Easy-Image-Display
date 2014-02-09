@@ -101,10 +101,13 @@ class SB_Easy_Image_Widget extends WP_Widget {
 
             $defaults = array( 
                 'title' => esc_html__( 'Latest Image', 'shellbotics' ), 
+                'order' => 'newest',
+                'size' => 'thumbnail',
                 'num' => 1, 
                 'link' => 'File',
                 'columns' => 1,
                 'filter' => 'Only',
+                'ids' => '',
             );
 
             $instance = wp_parse_args( (array) $instance, $defaults ); 
@@ -196,7 +199,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                     ?>
                 </select>
             </p>
-                
+ 
             <!-- Image IDs -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'ids' ); ?>"><?php esc_html_e( 'Image IDs (separate with comma)', 'shellbotics' ); ?></label>

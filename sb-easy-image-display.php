@@ -83,6 +83,7 @@ class sb_easy_image_display {
             'link' => 'file',
             'columns' => '3',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -93,7 +94,7 @@ class sb_easy_image_display {
             'link' => $link,  
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -111,6 +112,7 @@ class sb_easy_image_display {
             'link' => 'file',
             'columns' => '3',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -121,7 +123,7 @@ class sb_easy_image_display {
             'link' => $link,  
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -139,6 +141,7 @@ class sb_easy_image_display {
             'link' => 'file',
             'columns' => '5',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -149,7 +152,7 @@ class sb_easy_image_display {
             'link' => $link,  
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args );
@@ -299,7 +302,7 @@ class sb_easy_image_display {
             $output = preg_replace( array( '/<a[^>]*>/', '/<\/a>/'), '', $output );
         }
         
-        if( 1 == $lightbox ) {
+        if( isset( $lightbox ) && 1 == $lightbox ) {
             $this->public_js();
         }
 
