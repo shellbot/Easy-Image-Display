@@ -3,7 +3,7 @@
 Plugin Name: Easy Image Display
 Plugin URI: http://shellbotics.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.1.0
+Version: 1.1.1
 Author: Shellbot
 Author URI: http://shellbotics.com
 License: GPLv2 or later
@@ -49,7 +49,7 @@ class sb_easy_image_display {
     /* JS / CSS ------------------------------------------------------------- */
     
     function public_scripts() {
-        wp_register_script( 'colorbox', plugin_dir_url( __FILE__ ). 'js/jquery.colorbox-min.js', array( 'jquery' ) );
+        wp_register_script( 'colorbox', plugin_dir_url( __FILE__ ). 'js/jquery.colorbox-min.js', array( 'jquery' ), '', true );
         wp_register_style( 'colorbox-css', plugin_dir_url( __FILE__ ). 'css/colorbox.css' );
 
         wp_enqueue_script( 'colorbox' );
@@ -81,8 +81,10 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '3',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -91,9 +93,10 @@ class sb_easy_image_display {
             'order' => $order,
             'size'  => $size,
             'link' => $link,  
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -109,8 +112,10 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '3',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -118,10 +123,11 @@ class sb_easy_image_display {
             'num' => $num,
             'order' => $order,
             'size'  => $size,
-            'link' => $link,  
+            'link' => $link, 
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -137,8 +143,10 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '5',
             'filter' => 'only',
+            'ids' => '',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -146,10 +154,11 @@ class sb_easy_image_display {
             'num' => $num,
             'order' => $order,
             'size'  => $size,
-            'link' => $link,  
+            'link' => $link,
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
-            'ids' => $args['ids'],
+            'ids' => $ids,
         );
 
         return $this->sb_get_easy_image( $args );
@@ -182,7 +191,7 @@ class sb_easy_image_display {
         if( $args['ids'] && strtolower( $args['filter'] ) == 'include' ) {
             $attachments = $this->include_action( $args, $query );
         } elseif( $args['ids'] ) {
-            $ids = split( ',', $args['ids'] );
+            $ids = explode( ',', $args['ids'] );
             
             if( strtolower( $args['filter'] ) == 'exclude' ) {
                 $query['post__not_in'] = $ids; 
@@ -202,7 +211,7 @@ class sb_easy_image_display {
             foreach ( $attachments as $attachment ) {
                 $ids .= $attachment->ID . ', ';
             }
-            return do_shortcode( '[gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '"]' );
+            return do_shortcode( '[gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '"]' );
 
         } else {
             echo 'No images to display.';
@@ -214,7 +223,7 @@ class sb_easy_image_display {
     /* Rejig query based on action parameter -------------------------------- */
     function include_action( $args, $query ) {
         
-        $ids = split( ',', $args['ids'] );
+        $ids = explode( ',', $args['ids'] );
         
         if( count( $ids ) >= $args['num'] ) {
             //Equal or more IDs than total images.
@@ -287,7 +296,7 @@ class sb_easy_image_display {
     function custom_gallery_shortcode( $attr ) {
         global $post, $wp_locale;
 
-        if ( 'lightbox' == $attr['link'] ) {
+        if ( isset( $attr['link'] ) && 'lightbox' == $attr['link'] ) {
             $attr['link'] = 'file';
             $lightbox = 1;
         }
@@ -295,11 +304,17 @@ class sb_easy_image_display {
         $output = gallery_shortcode($attr);
 
         // no link
-        if ( isset( $attr['link'] ) && "none" == $attr['link']  ) {
+        if ( isset( $attr['link'] ) && 'none' == $attr['link']  ) {
             $output = preg_replace( array( '/<a[^>]*>/', '/<\/a>/'), '', $output );
         }
         
-        if( 1 == $lightbox ) {
+        //static link
+        if ( isset( $attr['link'] ) && 'url' == $attr['link'] && !empty( $attr['url'] ) ) {
+            $pattern = "/(?<=href=(\"|'))[^\"']+(?=(\"|'))/";
+            $output = preg_replace( $pattern, $attr['url'], $output );
+        }
+        
+        if( isset( $lightbox ) && 1 == $lightbox ) {
             $this->public_js();
         }
 
