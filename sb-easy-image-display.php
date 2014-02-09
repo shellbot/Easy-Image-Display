@@ -182,7 +182,7 @@ class sb_easy_image_display {
         if( $args['ids'] && strtolower( $args['filter'] ) == 'include' ) {
             $attachments = $this->include_action( $args, $query );
         } elseif( $args['ids'] ) {
-            $ids = split( ',', $args['ids'] );
+            $ids = explode( ',', $args['ids'] );
             
             if( strtolower( $args['filter'] ) == 'exclude' ) {
                 $query['post__not_in'] = $ids; 
@@ -214,7 +214,7 @@ class sb_easy_image_display {
     /* Rejig query based on action parameter -------------------------------- */
     function include_action( $args, $query ) {
         
-        $ids = split( ',', $args['ids'] );
+        $ids = explode( ',', $args['ids'] );
         
         if( count( $ids ) >= $args['num'] ) {
             //Equal or more IDs than total images.
