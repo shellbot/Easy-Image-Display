@@ -49,7 +49,7 @@ class sb_easy_image_display {
     /* JS / CSS ------------------------------------------------------------- */
     
     function public_scripts() {
-        wp_register_script( 'colorbox', plugin_dir_url( __FILE__ ). 'js/jquery.colorbox-min.js', array( 'jquery' ) );
+        wp_register_script( 'colorbox', plugin_dir_url( __FILE__ ). 'js/jquery.colorbox-min.js', array( 'jquery' ), '', true );
         wp_register_style( 'colorbox-css', plugin_dir_url( __FILE__ ). 'css/colorbox.css' );
 
         wp_enqueue_script( 'colorbox' );
