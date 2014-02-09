@@ -81,6 +81,7 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '3',
             'filter' => 'only',
             'ids' => '',
@@ -92,6 +93,7 @@ class sb_easy_image_display {
             'order' => $order,
             'size'  => $size,
             'link' => $link,  
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
@@ -110,6 +112,7 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '3',
             'filter' => 'only',
             'ids' => '',
@@ -120,7 +123,8 @@ class sb_easy_image_display {
             'num' => $num,
             'order' => $order,
             'size'  => $size,
-            'link' => $link,  
+            'link' => $link, 
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
@@ -139,6 +143,7 @@ class sb_easy_image_display {
             'order' => 'newest',
             'size'  => 'thumbnail',
             'link' => 'file',
+            'url' => '',
             'columns' => '5',
             'filter' => 'only',
             'ids' => '',
@@ -149,7 +154,8 @@ class sb_easy_image_display {
             'num' => $num,
             'order' => $order,
             'size'  => $size,
-            'link' => $link,  
+            'link' => $link,
+            'url' => $url,
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
@@ -205,7 +211,7 @@ class sb_easy_image_display {
             foreach ( $attachments as $attachment ) {
                 $ids .= $attachment->ID . ', ';
             }
-            return do_shortcode( '[gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '"]' );
+            return do_shortcode( '[gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '"]' );
 
         } else {
             echo 'No images to display.';
@@ -290,7 +296,7 @@ class sb_easy_image_display {
     function custom_gallery_shortcode( $attr ) {
         global $post, $wp_locale;
 
-        if ( 'lightbox' == $attr['link'] ) {
+        if ( isset( $attr['link'] ) && 'lightbox' == $attr['link'] ) {
             $attr['link'] = 'file';
             $lightbox = 1;
         }
@@ -298,8 +304,14 @@ class sb_easy_image_display {
         $output = gallery_shortcode($attr);
 
         // no link
-        if ( isset( $attr['link'] ) && "none" == $attr['link']  ) {
+        if ( isset( $attr['link'] ) && 'none' == $attr['link']  ) {
             $output = preg_replace( array( '/<a[^>]*>/', '/<\/a>/'), '', $output );
+        }
+        
+        //static link
+        if ( isset( $attr['link'] ) && 'url' == $attr['link'] && !empty( $attr['url'] ) ) {
+            $pattern = "/(?<=href=(\"|'))[^\"']+(?=(\"|'))/";
+            $output = preg_replace( $pattern, $attr['url'], $output );
         }
         
         if( isset( $lightbox ) && 1 == $lightbox ) {

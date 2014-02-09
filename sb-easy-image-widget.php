@@ -44,6 +44,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
         $instance['size']    = $new_instance['size'];
         $instance['columns'] = $new_instance['columns'];
         $instance['link']    = $new_instance['link'];
+        $instance['url']     = $new_instance['url'];
         $instance['filter']    = $new_instance['filter'];
         $instance['ids']    = $new_instance['ids'];
 
@@ -80,6 +81,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'Lightbox',
                 'Attachment',
                 'File',
+                'URL',
             ),
             'filter' => array(
                 'Only',
@@ -105,6 +107,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'size' => 'thumbnail',
                 'num' => 1, 
                 'link' => 'File',
+                'url' => '',
                 'columns' => 1,
                 'filter' => 'Only',
                 'ids' => '',
@@ -178,6 +181,12 @@ class SB_Easy_Image_Widget extends WP_Widget {
                     </select>
                 </p>
                 
+            <!-- Static URL -->
+            <p>
+                <label for="<?php echo $this->get_field_id( 'url' ); ?>"><?php esc_html_e( 'Static URL', 'shellbotics' ); ?></label>
+                <input id="<?php echo $this->get_field_id( 'url' ); ?>" type="text" name="<?php echo $this->get_field_name( 'url' ); ?>" value="<?php echo $instance['url']; ?>" class="widefat" />
+            </p> 
+                
             <!-- Number of columns to display -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'columns' ); ?>"><?php esc_html_e( 'Number of columns to display', 'shellbotics' ); ?></label>
@@ -225,6 +234,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
             'order'   => $instance['order'],
             'size'    => $instance['size'],
             'link'    => $instance['link'],  
+            'url'     => $instance['url'],
             'columns' => $instance['columns'],
             'filter'  => $instance['filter'],
             'ids'     => $instance['ids'],
