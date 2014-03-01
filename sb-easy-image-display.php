@@ -56,10 +56,10 @@ class sb_easy_image_display {
         wp_enqueue_style( 'colorbox-css' );
     }
 
-    function public_js() {
+    function public_js( $gallery_id = '' ) {
         echo '<script type="text/javascript">
                 jQuery(document).ready(function() {
-                  jQuery(".gallery a").colorbox({
+                  jQuery("#' . $gallery_id . ' a").colorbox({
                     maxWidth: "80%",
                     maxHeight: "80%",
                   });
@@ -302,6 +302,11 @@ class sb_easy_image_display {
         }
 
         $output = gallery_shortcode($attr);
+        
+        //find gallery ID
+        $pattern = '/gallery-[0-9]/';
+        preg_match($pattern, $output, $matches);
+        $gallery_id = $matches[0];
 
         // no link
         if ( isset( $attr['link'] ) && 'none' == $attr['link']  ) {
@@ -315,7 +320,7 @@ class sb_easy_image_display {
         }
         
         if( isset( $lightbox ) && 1 == $lightbox ) {
-            $this->public_js();
+            $this->public_js( $gallery_id );
         }
 
         return $output;
