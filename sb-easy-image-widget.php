@@ -69,6 +69,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'Newest',
                 'Oldest',
                 'Random',
+                'Custom',
             ), 
             'sizes' => array(
                 'Thumbnail',

@@ -186,6 +186,10 @@ class sb_easy_image_display {
             case 'oldest':
                 $query['order'] = 'ASC';
             break;
+            case 'custom': 
+                $query['orderby'] = 'post__in';
+                $query['order'] = 'ASC';
+            break;
         };
         
         if( $args['ids'] && strtolower( $args['filter'] ) == 'include' ) {
@@ -224,7 +228,7 @@ class sb_easy_image_display {
                 $query['post__not_in'] = $ids; 
             } else {
                 //Default "only"
-                $query['post__in'] = array_reverse( $ids ); 
+                $query['post__in'] = $ids; 
             }
 
             $attachments = get_posts( $query );
