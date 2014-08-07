@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: image, gallery, latest image, random image
 Requires at least: 3.5
-Tested up to: 3.8.1
+Tested up to: 3.9.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T3XBQZNXBEHPC
 Stable tag: trunk
 License: GPLv2 or later
@@ -19,6 +19,7 @@ images uploaded to your site.
 
 Current features include:
 
+* Newest, oldest, random and custom sorting options
 * Include/exclude images based on ID
 * Widget, shortcode and template tag for maximum flexibility
 * Display images at various sizes
@@ -114,8 +115,18 @@ theme, usually in style.css :
     margin-top: 0px !important;
 }`
 
+= How does the custom sorting option work? =
+
+This option will only take effect when filter is set to "only", as that is the only time when every image ID is specified 
+and can therefore be ordered correctly.
+
 
 == Changelog ==
+
+= 1.2.0 =
+* Added option to specify range of image IDs
+* Added custom sorting option
+* Various performance fixes
 
 = 1.1.1 = 
 * Fixed compatibility with PHP 5.4
@@ -136,6 +147,10 @@ theme, usually in style.css :
 * First version
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* New feature! Specify a range of image IDs.
+* New feature! Custom sorting option.
 
 = 1.1.1 =
 * New feature! Link images to static URL.
