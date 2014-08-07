@@ -189,17 +189,44 @@ class sb_easy_image_display {
         };
         
         if( $args['ids'] && strtolower( $args['filter'] ) == 'include' ) {
+            
             $attachments = $this->include_action( $args, $query );
+            
         } elseif( $args['ids'] ) {
-            $ids = explode( ',', $args['ids'] );
+            
+            if( false != strpos( $args['ids'], '-' ) ) { //IDs include a range
+                
+                $temp_ids = explode( ',', $args['ids'] );
+                $ids = array();
+                
+                foreach ($temp_ids as $k => $v) {
+
+                    // Is there a dash?
+                    $dash = strpos($v, '-');
+                    if ($dash) {
+                        $from = intval(substr($v, 0, $dash));
+                        $to = intval(substr($v, $dash + 1));
+
+                        for ($i = $from; $i <= $to; $i ++) {
+                            $ids[] = "$i";
+                        }
+                    }
+                    else { // No, just insert next in the array
+                        $ids[] = "$v";
+                    }
+                }
+
+            } else { //no ranges, straighforward explode
+                $ids = explode( ',', $args['ids'] );
+            }
             
             if( strtolower( $args['filter'] ) == 'exclude' ) {
                 $query['post__not_in'] = $ids; 
             } else {
                 //Default "only"
-                $query['post__in'] = $ids; 
+                $query['post__in'] = array_reverse( $ids ); 
             }
-            
+
             $attachments = get_posts( $query );
         } else {
             $attachments = get_posts( $query );
