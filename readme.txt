@@ -123,6 +123,9 @@ and can therefore be ordered correctly.
 
 == Changelog ==
 
+= 1.2.1 =
+* Fixed incompatibility with other plugins affecting the [gallery] shortcode
+
 = 1.2.0 =
 * Added option to specify range of image IDs
 * Added custom sorting option
@@ -147,6 +150,9 @@ and can therefore be ordered correctly.
 * First version
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+* Fixes incompatibility with other plugins affecting the [gallery] shortcode
 
 = 1.2.0 =
 * New feature! Specify a range of image IDs.
