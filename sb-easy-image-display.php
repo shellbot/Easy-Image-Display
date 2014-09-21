@@ -3,7 +3,7 @@
 Plugin Name: Easy Image Display
 Plugin URI: http://shellbotics.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.2.0
+Version: 1.2.1
 Author: Shellbot
 Author URI: http://shellbotics.com
 License: GPLv2 or later
@@ -40,7 +40,7 @@ class sb_easy_image_display {
 
         /* Shortcodes --------------------------------------------------------------- */
 
-        add_shortcode( 'gallery', array( $this, 'custom_gallery_shortcode' ) );
+        add_shortcode( 'sb_gallery', array( $this, 'custom_gallery_shortcode' ) );
         add_shortcode( 'sb_easy_image', array( $this, 'sb_image_shortcode' ) );
         
     }
@@ -242,7 +242,7 @@ class sb_easy_image_display {
             foreach ( $attachments as $attachment ) {
                 $ids .= $attachment->ID . ', ';
             }
-            return do_shortcode( '[gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '"]' );
+            return do_shortcode( '[sb_gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '"]' );
 
         } else {
             echo 'No images to display.';
@@ -325,6 +325,7 @@ class sb_easy_image_display {
     /* The Gallery shortcode - modified for link="none" and link="lightbox" ----- */
 
     function custom_gallery_shortcode( $attr ) {
+
         global $post, $wp_locale;
 
         if ( isset( $attr['link'] ) && 'lightbox' == $attr['link'] ) {
