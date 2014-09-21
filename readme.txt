@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: image, gallery, latest image, random image
 Requires at least: 3.5
-Tested up to: 3.9.2
+Tested up to: 4.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T3XBQZNXBEHPC
 Stable tag: trunk
 License: GPLv2 or later
