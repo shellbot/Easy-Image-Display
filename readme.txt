@@ -19,6 +19,7 @@ images uploaded to your site.
 
 Current features include:
 
+* Show or hide image captions
 * Newest, oldest, random and custom sorting options
 * Include/exclude images based on ID
 * Widget, shortcode and template tag for maximum flexibility
@@ -123,6 +124,9 @@ and can therefore be ordered correctly.
 
 == Changelog ==
 
+= 1.2.2 =
+* Added option to show/hide captions
+
 = 1.2.1 =
 * Fixed incompatibility with other plugins affecting the [gallery] shortcode
 
@@ -150,6 +154,9 @@ and can therefore be ordered correctly.
 * First version
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+* New feature! Show/hide image captions.
 
 = 1.2.1 =
 * Fixes incompatibility with other plugins affecting the [gallery] shortcode

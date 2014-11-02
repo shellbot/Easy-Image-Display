@@ -1,7 +1,7 @@
 <?php
 /**
  * Widget Name: Easy Image Display
- * Version: 1.2.1
+ * Version: 1.2.2
  */
 
 
@@ -47,6 +47,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
         $instance['url']     = $new_instance['url'];
         $instance['filter']    = $new_instance['filter'];
         $instance['ids']    = $new_instance['ids'];
+        $instance['captions'] = $new_instance['captions'];
 
         return $instance;
     }
@@ -89,6 +90,10 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'Include',
                 'Exclude',
             ),
+            'captions' => array(
+                'On',
+                'Off',
+            ),
         );
 
         return $params;
@@ -112,6 +117,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'columns' => 1,
                 'filter' => 'Only',
                 'ids' => '',
+                'captions' => 'on',
             );
 
             $instance = wp_parse_args( (array) $instance, $defaults ); 
@@ -139,6 +145,22 @@ class SB_Easy_Image_Widget extends WP_Widget {
                     ?>
                         <option value="<?php echo $order; ?>" <?php if ( $order == $instance['order'] ) { echo 'selected="selected"'; } ?>>
                             <?php echo $order; ?>
+                        </option>
+                    <?php
+                    } 
+                    ?>
+                </select>
+            </p>
+            
+            <!-- Captions -->
+            <p>
+                <label for="<?php echo $this->get_field_id( 'captions' ); ?>"><?php esc_html_e( 'Captions:', 'shellbotics' ); ?></label>
+                <select id="<?php echo $this->get_field_id( 'captions' ); ?>" name="<?php echo $this->get_field_name( 'captions' ); ?>" >
+                    <?php
+                    foreach ( $params['captions'] as $caption ) {
+                    ?>
+                        <option value="<?php echo $caption; ?>" <?php if ( $caption == $instance['captions'] ) { echo 'selected="selected"'; } ?>>
+                            <?php echo $caption; ?>
                         </option>
                     <?php
                     } 
@@ -239,6 +261,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
             'columns' => $instance['columns'],
             'filter'  => $instance['filter'],
             'ids'     => $instance['ids'],
+            'captions'=> $instance['captions'],
         );
 
         echo $before_widget;

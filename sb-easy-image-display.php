@@ -3,7 +3,7 @@
 Plugin Name: Easy Image Display
 Plugin URI: http://shellbotics.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.2.1
+Version: 1.2.2
 Author: Shellbot
 Author URI: http://shellbotics.com
 License: GPLv2 or later
@@ -66,6 +66,12 @@ class sb_easy_image_display {
                 });         
             </script>';
     }
+    
+    function public_css( $gallery_id = '' ) {
+        echo '<style type="text/css">'
+            . '#' . $gallery_id . ' .gallery-caption { display: none !important; }'
+            . '</style>';
+    }
 
 
     /* Widget ------------------------------------------------------------------- */
@@ -85,6 +91,7 @@ class sb_easy_image_display {
             'columns' => '3',
             'filter' => 'only',
             'ids' => '',
+            'captions' => 'on',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -97,6 +104,7 @@ class sb_easy_image_display {
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
+            'captions' => $captions,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -116,6 +124,7 @@ class sb_easy_image_display {
             'columns' => '3',
             'filter' => 'only',
             'ids' => '',
+            'captions' => 'on',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -128,6 +137,7 @@ class sb_easy_image_display {
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
+            'captions' => $captions,
         );
 
         return $this->sb_get_easy_image( $args, 'shortcode' );
@@ -147,6 +157,7 @@ class sb_easy_image_display {
             'columns' => '5',
             'filter' => 'only',
             'ids' => '',
+            'captions' => 'on',
         ), $args ) );
 
         //rebuild $args array with custom values & defaults
@@ -159,6 +170,7 @@ class sb_easy_image_display {
             'columns' => $columns,
             'filter' => $filter,
             'ids' => $ids,
+            'captions' => $captions,
         );
 
         return $this->sb_get_easy_image( $args );
@@ -167,8 +179,8 @@ class sb_easy_image_display {
 
     /* Construct query and return array of images ------------------------------- */
 
-    function sb_get_easy_image( $args, $src = '' ) {  
-
+    function sb_get_easy_image( $args, $src = '' ) { 
+        
         $query = array (
             'post_type' => 'attachment',
             'post_mime_type' => 'image',
@@ -242,7 +254,8 @@ class sb_easy_image_display {
             foreach ( $attachments as $attachment ) {
                 $ids .= $attachment->ID . ', ';
             }
-            return do_shortcode( '[sb_gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '"]' );
+
+            return do_shortcode( '[sb_gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . ' captions="' . strtolower( $args['captions'] ) . '"]' );
 
         } else {
             echo 'No images to display.';
@@ -353,6 +366,10 @@ class sb_easy_image_display {
         
         if( isset( $lightbox ) && 1 == $lightbox ) {
             $this->public_js( $gallery_id );
+        }
+        
+        if( strtolower( $attr['captions'] ) == 'off' ) {
+            $this->public_css( $gallery_id );
         }
 
         return $output;
