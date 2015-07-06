@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Easy Image Display
-Plugin URI: http://shellbotics.com/wordpress-plugins/easy-image-display/
+Plugin URI: http://codebyshellbot.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.2.2
+Version: 1.2.3
 Author: Shellbot
-Author URI: http://shellbotics.com
+Author URI: http://codebyshellbot.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -59,7 +59,7 @@ class sb_easy_image_display {
     function public_js( $gallery_id = '' ) {
         echo '<script type="text/javascript">
                 jQuery(document).ready(function() {
-                  jQuery("#' . $gallery_id . ' a").colorbox({
+                  jQuery("#' . $gallery_id . ' .gallery-icon a").colorbox({
                     maxWidth: "80%",
                     maxHeight: "80%",
                   });

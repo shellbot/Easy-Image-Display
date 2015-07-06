@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: image, gallery, latest image, random image
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.2.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T3XBQZNXBEHPC
 Stable tag: trunk
 License: GPLv2 or later
@@ -78,7 +78,7 @@ sb_easy_image( $args );
 
 ?>`
 
-For full list of parameters see [the plugin release page](http://shellbotics.com/wordpress-plugins/easy-image-display/ "Easy Image Display")
+For full list of parameters see [the plugin release page](http://codebyshellbot.com/wordpress-plugins/easy-image-display/ "Easy Image Display")
 
 == Installation ==
 
@@ -124,6 +124,9 @@ and can therefore be ordered correctly.
 
 == Changelog ==
 
+= 1.2.3 =
+* Fixed problem with caption links + lightbox
+
 = 1.2.2 =
 * Added option to show/hide captions
 
@@ -154,6 +157,9 @@ and can therefore be ordered correctly.
 * First version
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+* Fixes problem with caption links + lightbox
 
 = 1.2.2 =
 * New feature! Show/hide image captions.
