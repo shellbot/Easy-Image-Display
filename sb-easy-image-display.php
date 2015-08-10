@@ -81,9 +81,8 @@ class sb_easy_image_display {
           $user_id = $current_user->ID;
           /* Check that the user hasn't already clicked to ignore the message */
       	if ( ! get_user_meta($user_id, 'eid_ignore_admin_notice') ) {
-          echo '<div class="update-nag">';
-          echo '<h2>Thank you for using Easy Image Display</h2><p>';
-          printf(__('This plugin is <a href="%1$s" target="_blank">supported through Patreon</a>. If you find it useful, please consider a small donation. Thanks! | <a href="%2$s">Hide Notice</a>'), 'http://patreon.com/shellbot', '?eid_admin_notice_ignore=0');
+          echo '<div class="updated"><p>';
+          printf(__('Easy Image Display is <a href="%1$s" target="_blank">supported through Patreon</a>. If you find it useful, please consider a small donation. Thanks! | <a href="%2$s">Hide Notice</a>'), 'http://patreon.com/shellbot', '?eid_admin_notice_ignore=0');
           echo "</p></div>";
       	}
 
