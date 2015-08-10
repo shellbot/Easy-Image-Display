@@ -1,7 +1,7 @@
 <?php
 /**
  * Widget Name: Easy Image Display
- * Version: 1.2.3
+ * Version: 1.2.4
  */
 
 
@@ -14,28 +14,28 @@ function sb_easy_image_load_widgets() {
 
 
 class SB_Easy_Image_Widget extends WP_Widget {
- 
-    /* Widget setup --------------------------------------------------------- */
-    
-    function SB_Easy_Image_Widget() {
 
-        $widget_ops = array( 
-            'classname' => 'widget-sb-easy-image', 
+    /* Widget setup --------------------------------------------------------- */
+
+    function __construct() {
+
+        $widget_ops = array(
+            'classname' => 'widget-sb-easy-image',
             'description' => esc_html__('Arrange and display your uploaded images', 'shellbotics'),
         );
-        
-        $control_ops = array( 
-            'width' => 150, 
-            'height' => 350, 
+
+        $control_ops = array(
+            'width' => 150,
+            'height' => 350,
             'id_base' => 'sb-easy-image-widget',
         );
 
-        $this->WP_Widget( 'sb-easy-image-widget', esc_html__( 'SB Easy Image', 'shellbotics' ), $widget_ops, $control_ops );
+        parent::__construct( 'sb-easy-image-widget', esc_html__( 'SB Easy Image', 'shellbotics' ), $widget_ops, $control_ops );
     }
 
-    
+
     /* Update --------------------------------------------------------------- */
-    
+
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
         $instance['title']   = strip_tags( $new_instance['title'] );
@@ -51,33 +51,33 @@ class SB_Easy_Image_Widget extends WP_Widget {
 
         return $instance;
     }
-    
+
     /* Return possible settings as array ---------------------------------------- */
 
-    function sb_easy_image_params() { 
+    function sb_easy_image_params() {
 
         $params = array(
             'include' => array(
                 'Show all',
                 'Include only',
-                'Exclude',  
-            ), 
+                'Exclude',
+            ),
             'yesno' => array(
                 'Yes',
-                'No',  
-            ), 
+                'No',
+            ),
             'order' => array(
                 'Newest',
                 'Oldest',
                 'Random',
                 'Custom',
-            ), 
+            ),
             'sizes' => array(
                 'Thumbnail',
                 'Medium',
                 'Large',
                 'Full',
-            ), 
+            ),
             'link' => array(
                 'None',
                 'Lightbox',
@@ -102,16 +102,16 @@ class SB_Easy_Image_Widget extends WP_Widget {
 
 
     /* Settings ------------------------------------------------------------- */
-    
+
     function form( $instance ) {
-        
+
         $params = $this->sb_easy_image_params();
 
-            $defaults = array( 
-                'title' => esc_html__( 'Latest Image', 'shellbotics' ), 
+            $defaults = array(
+                'title' => esc_html__( 'Latest Image', 'shellbotics' ),
                 'order' => 'newest',
                 'size' => 'thumbnail',
-                'num' => 1, 
+                'num' => 1,
                 'link' => 'File',
                 'url' => '',
                 'columns' => 1,
@@ -120,21 +120,21 @@ class SB_Easy_Image_Widget extends WP_Widget {
                 'captions' => 'on',
             );
 
-            $instance = wp_parse_args( (array) $instance, $defaults ); 
-            
+            $instance = wp_parse_args( (array) $instance, $defaults );
+
             ?>
 
             <!-- Widget Title: Text Input -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'shellbotics' ); ?></label>
                 <input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
-            </p>  
+            </p>
 
             <!-- Number of images to display -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'num' ); ?>"><?php esc_html_e( 'Number of images to display', 'shellbotics' ); ?></label>
                 <input id="<?php echo $this->get_field_id( 'num' ); ?>" type="text" name="<?php echo $this->get_field_name( 'num' ); ?>" value="<?php echo $instance['num']; ?>" class="widefat" />
-            </p>  
+            </p>
 
             <!-- Display order -->
             <p>
@@ -147,11 +147,11 @@ class SB_Easy_Image_Widget extends WP_Widget {
                             <?php echo $order; ?>
                         </option>
                     <?php
-                    } 
+                    }
                     ?>
                 </select>
             </p>
-            
+
             <!-- Captions -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'captions' ); ?>"><?php esc_html_e( 'Captions:', 'shellbotics' ); ?></label>
@@ -163,7 +163,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                             <?php echo $caption; ?>
                         </option>
                     <?php
-                    } 
+                    }
                     ?>
                 </select>
             </p>
@@ -183,7 +183,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
                                 <?php echo $size; ?>
                             </option>
                         <?php
-                        } 
+                        }
                         ?>
                     </select>
                 </p>
@@ -199,23 +199,23 @@ class SB_Easy_Image_Widget extends WP_Widget {
                                 <?php echo $link; ?>
                             </option>
                         <?php
-                        } 
+                        }
                         ?>
                     </select>
                 </p>
-                
+
             <!-- Static URL -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'url' ); ?>"><?php esc_html_e( 'Static URL', 'shellbotics' ); ?></label>
                 <input id="<?php echo $this->get_field_id( 'url' ); ?>" type="text" name="<?php echo $this->get_field_name( 'url' ); ?>" value="<?php echo $instance['url']; ?>" class="widefat" />
-            </p> 
-                
+            </p>
+
             <!-- Number of columns to display -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'columns' ); ?>"><?php esc_html_e( 'Number of columns to display', 'shellbotics' ); ?></label>
                 <input id="<?php echo $this->get_field_id( 'columns' ); ?>" type="text" name="<?php echo $this->get_field_name( 'columns' ); ?>" value="<?php echo $instance['columns']; ?>" class="widefat" />
-            </p>  
-            
+            </p>
+
             <!-- Filter -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'filter' ); ?>"><?php esc_html_e('Filter:', 'shellbotics'); ?></label>
@@ -227,25 +227,25 @@ class SB_Easy_Image_Widget extends WP_Widget {
                             <?php echo $filter; ?>
                         </option>
                     <?php
-                    } 
+                    }
                     ?>
                 </select>
             </p>
- 
+
             <!-- Image IDs -->
             <p>
                 <label for="<?php echo $this->get_field_id( 'ids' ); ?>"><?php esc_html_e( 'Image IDs (separate with comma)', 'shellbotics' ); ?></label>
                 <input id="<?php echo $this->get_field_id( 'ids' ); ?>" type="text" name="<?php echo $this->get_field_name( 'ids' ); ?>" value="<?php echo $instance['ids']; ?>" class="widefat" />
-            </p>  
+            </p>
 
             </div>
 
     <?php
     }
 
-    
+
     /* Display -------------------------------------------------------------- */
-    
+
     function widget( $args, $instance ) {
 
         extract( $args );
@@ -256,7 +256,7 @@ class SB_Easy_Image_Widget extends WP_Widget {
             'num'     => $instance['num'],
             'order'   => $instance['order'],
             'size'    => $instance['size'],
-            'link'    => $instance['link'],  
+            'link'    => $instance['link'],
             'url'     => $instance['url'],
             'columns' => $instance['columns'],
             'filter'  => $instance['filter'],
@@ -269,11 +269,11 @@ class SB_Easy_Image_Widget extends WP_Widget {
         if ( $settings['title'] ) {
             echo $before_title . $settings['title'] . $after_title;
         }
-        
+
         global $sbcid;
         echo $sbcid->sb_image_widget( $settings );
 
         echo $after_widget;
     }
-    
+
 } // SB_Image_Widget class ends

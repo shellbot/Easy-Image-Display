@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: image, gallery, latest image, random image
 Requires at least: 3.5
-Tested up to: 4.2.2
+Tested up to: 4.3
 Donate link: http://patreon.com/shellbot
 Stable tag: trunk
 License: GPLv2 or later
@@ -126,6 +126,9 @@ and can therefore be ordered correctly.
 
 == Changelog ==
 
+= 1.2.4 =
+* Compatibility with WP 4.3
+
 = 1.2.3 =
 * Fixed problem with caption links + lightbox
 
@@ -159,6 +162,9 @@ and can therefore be ordered correctly.
 * First version
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+* Fixes compatibility with upcoming WP 4.3
 
 = 1.2.3 =
 * Fixes problem with caption links + lightbox

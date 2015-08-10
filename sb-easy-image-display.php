@@ -3,7 +3,7 @@
 Plugin Name: Easy Image Display
 Plugin URI: http://codebyshellbot.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.2.3
+Version: 1.2.4
 Author: Shellbot
 Author URI: http://codebyshellbot.com
 License: GPLv2 or later
