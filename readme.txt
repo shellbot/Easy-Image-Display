@@ -74,7 +74,7 @@ $args = array(
     "num" => "1",
     "order" => "random",
     "link" => "lightbox",
-}
+);
 
 sb_easy_image( $args );
 
