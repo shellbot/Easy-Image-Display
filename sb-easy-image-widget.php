@@ -1,7 +1,7 @@
 <?php
 /**
  * Widget Name: Easy Image Display
- * Version: 1.2.4
+ * Version: 1.2.5
  */
 
 

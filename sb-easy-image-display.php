@@ -3,7 +3,7 @@
 Plugin Name: Easy Image Display
 Plugin URI: http://codebyshellbot.com/wordpress-plugins/easy-image-display/
 Description: An easy way to display random or latest images on your site.
-Version: 1.2.4
+Version: 1.2.5
 Author: Shellbot
 Author URI: http://codebyshellbot.com
 License: GPLv2 or later
@@ -309,7 +309,7 @@ class sb_easy_image_display {
                 $ids .= $attachment->ID . ', ';
             }
 
-            return do_shortcode( '[sb_gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . ' captions="' . strtolower( $args['captions'] ) . '"]' );
+            return do_shortcode( '[sb_gallery columns="' . $args['columns'] . '" ids="' . $ids . '" size="' . strtolower( $args['size'] ) . '" link="' . strtolower( $args['link'] ) . '" url="' . strtolower( $args['url'] ) . '" captions="' . strtolower( $args['captions'] ) . '"]' );
 
         } else {
             echo 'No images to display.';
